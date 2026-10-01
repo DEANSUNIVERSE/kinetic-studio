@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>𝕯𝖊𝖆𝖓'𝖘 𝖀𝖓𝖎𝖛𝖊𝖗𝖘𝖊 🍃 | High-Velocity 3D Kinetic Studio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* --- Core Theme & Background --- */
+body {
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  overflow-x: hidden;
+  background: linear-gradient(-45deg, #050608, #0e111a, #380710, #040507);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #07080c; }
+::-webkit-scrollbar-thumb { background: #261117; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #fc3b56; }
+
+/* --- 1. Loading Screen & Glitch --- */
+#loader {
+  transition: opacity 0.5s ease-out, visibility 0.5s;
+}
+.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.scan-line {
+  width: 100%;
+  height: 2px;
+  background: #fc3b56;
+  box-shadow: 0 0 12px #fc3b56;
+  animation: scan 2s linear infinite;
+}
+@keyframes scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Glitch Text Animation */
+.glitch-load {
+  animation: glitch-skew 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  position: relative;
+}
+.glitch-load::before, .glitch-load::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.glitch-load::before {
+  left: 2px;
+  text-shadow: -2px 0 #fc3b56;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+.glitch-load::after {
+  left: -2px;
+  text-shadow: -2px 0 #d6ad63;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(-2deg); }
+  40% { transform: skew(2deg); }
+  60% { transform: skew(0deg); }
+  80% { transform: skew(3deg); }
+  100% { transform: skew(0deg); }
+}
+@keyframes glitch-anim {
+  0% { clip: rect(12px, 9999px, 32px, 0); }
+  20% { clip: rect(65px, 9999px, 86px, 0); }
+  40% { clip: rect(23px, 9999px, 6px, 0); }
+  60% { clip: rect(89px, 9999px, 12px, 0); }
+  80% { clip: rect(44px, 9999px, 78px, 0); }
+  100% { clip: rect(3px, 9999px, 42px, 0); }
+}
+
+/* --- 2. Hero Marquee --- */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-content {
+  display: inline-block;
+  animation: marquee 22s linear infinite;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* --- 3. 3D Card Flip --- */
+.perspective-1000 { perspective: 1000px; }
+.transform-style-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; }
+.rotate-y-180 { transform: rotateY(180deg); }
+.group:hover .group-hover\:rotate-y-180 { transform: rotateY(180deg); }
+
+/* --- 4. Glassmorphism --- */
+.glass-panel {
+  background: rgba(16, 19, 29, 0.7);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* --- 5. Accordion Transition for Modules --- */
+.flex-accordion { transition: flex 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* --- 6. Neon Glow Button --- */
+@keyframes neon-pulse-slow {
+  0%, 100% { box-shadow: 0 0 12px rgba(252, 59, 86, 0.4); }
+  50% { box-shadow: 0 0 28px rgba(252, 59, 86, 0.8); }
+}
+.neon-glow-btn { animation: neon-pulse-slow 3s infinite ease-in-out; }
+
+/* --- 7. Diagonal Wipe Hover Effect --- */
+.diagonal-wipe {
+  position: relative;
+  overflow: hidden;
+}
+.diagonal-wipe::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: rgba(252, 59, 86, 0.85);
+  transform: skewX(-20deg) translateX(-150%);
+  transition: transform 0.45s ease;
+  z-index: 10;
+}
+.diagonal-wipe:hover::before {
+  transform: skewX(-20deg) translateX(-20%);
+}
+.wipe-content {
+  position: relative;
+  z-index: 20;
+  transition: color 0.3s;
+}
+
+/* Map Dots */
+.map-dot {
+  width: 5px;
+  height: 5px;
+  background: #555;
+  border-radius: 50%;
+  position: absolute;
+  transition: all 0.3s;
+}
+.map-dot:hover, .map-dot.active {
+  background: #fc3b56;
+  box-shadow: 0 0 10px #fc3b56;
+  transform: scale(1.6);
+}
+
+::selection {
+  background: #fc3b56;
+  color: white;
+}
+</style>
+</head>
+<body class="antialiased selection:bg-red-900/60 selection:text-white">
+
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center">
+        <div class="relative mb-6">
+            <h1 class="glitch-load text-3xl md:text-5xl font-extrabold tracking-tighter text-white uppercase font-mono" data-text="DEAN'S UNIVERSE">
+              𝕯𝖊𝖆𝖓'𝖘 𝖀𝖓𝖎𝖛𝖊𝖗𝖘𝖊 🍃
+            </h1>
+        </div>
+        <div class="w-64 h-1 bg-neutral-900 rounded-full overflow-hidden relative">
+            <div class="scan-line absolute top-0 left-0"></div>
+        </div>
+        <div class="mt-4 text-[11px] font-mono text-[#fc3b56] tracking-widest animate-pulse uppercase">
+          CALIBRATING 3D SPATIAL PROTOCOLS...
+        </div>
+    </div>
+
+    <!-- Master Header Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/75 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 group">
+                <span class="w-2.5 h-2.5 bg-[#fc3b56] rounded-sm rotate-45 group-hover:animate-spin border border-red-500/50 shadow-[0_0_8px_#fc3b56]"></span>
+                <span class="text-xs md:text-sm font-bold tracking-wider text-white uppercase group-hover:text-[#fc3b56] transition-colors font-mono">
+                    𝕯𝖊𝖆𝖓'𝖘 𝖀𝖓𝖎𝖛𝖊𝖗𝖘𝖊 <span class="text-[#d6ad63]">🍃</span>
+                </span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-[11px] font-mono font-bold tracking-widest text-neutral-400 uppercase">
+                <a href="#nexus" class="hover:text-white transition-colors">NEXUS</a>
+                <a href="#about" class="hover:text-white transition-colors">ETHOS</a>
+                <a href="#disciplines" class="hover:text-white transition-colors">DISCIPLINES</a>
+                <a href="#archive" class="hover:text-white transition-colors">ARCHIVE</a>
+                <a href="#team" class="hover:text-white transition-colors">UNIT</a>
+            </div>
+            <a href="#transmission" class="hidden md:flex items-center gap-2 bg-gradient-to-r from-[#d6ad63] to-[#e8bf70] text-black px-4 py-2 rounded text-[11px] font-mono font-bold uppercase hover:brightness-110 transition-all tracking-wider shadow-[0_0_15px_rgba(214,173,99,0.3)]">
+                <span>START PROTOCOL</span>
+                <span class="iconify" data-icon="lucide:arrow-up-right" data-width="14"></span>
+            </a>
+            <button class="md:hidden text-white">
+                <span class="iconify" data-icon="lucide:menu" data-width="24"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: HERO (Ambient Video Embed) -->
+    <header id="nexus" class="relative h-[90vh] bg-black overflow-hidden flex flex-col justify-end">
+        <div class="absolute inset-0 z-0 opacity-55">
+            <iframe class="w-full h-full object-cover pointer-events-none scale-125" src="https://www.youtube.com/embed/Z7aMCp9RCbk?autoplay=1&amp;mute=1&amp;controls=0&amp;loop=1&amp;playlist=Z7aMCp9RCbk&amp;showinfo=0&amp;rel=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;enablejsapi=1" title="Hero Background" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+        </div>
+        
+        <div class="absolute inset-0 z-10 bg-gradient-to-t from-[#050608] via-transparent to-black/60 pointer-events-none"></div>
+
+        <!-- Scrolling Marquee Headline -->
+        <div class="w-full z-20 border-y border-white/10 bg-black/40 backdrop-blur-md py-4 mb-8">
+            <div class="marquee-container">
+                <div class="marquee-content">
+                    <span class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white uppercase px-6 inline-block font-mono">WE ARCHITECT SPATIAL THREE.JS SIMULATIONS &amp; KINETIC TIMELINES.</span>
+                    <span class="text-4xl md:text-6xl font-extrabold tracking-tighter text-transparent stroke-text uppercase px-6 inline-block font-mono" style="-webkit-text-stroke: 1px rgba(252, 59, 86, 0.65);">WE ARCHITECT SPATIAL THREE.JS SIMULATIONS &amp; KINETIC TIMELINES.</span>
+                    <span class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white uppercase px-6 inline-block font-mono">WE ARCHITECT SPATIAL THREE.JS SIMULATIONS &amp; KINETIC TIMELINES.</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 2: INTRODUCTION & JOURNEY -->
+    <section id="about" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 space-y-24">
+            
+            <div class="relative">
+                <div class="absolute -top-20 -left-20 w-64 h-64 bg-[#fc3b56] rounded-full blur-[120px] opacity-25"></div>
+                <div class="glass-panel p-8 md:p-12 rounded-2xl relative z-10 max-w-4xl mx-auto text-center border-l-4 border-l-[#fc3b56]">
+                    <h2 class="text-xs font-mono text-[#fc3b56] mb-4 uppercase tracking-widest font-bold">[ SYSTEM_OVERVIEW ]</h2>
+                    <p class="text-base md:text-2xl text-neutral-200 font-light leading-relaxed tracking-tight">
+                        <span class="font-bold text-white">𝕯𝖊𝖆𝖓'𝖘 𝖀𝖓𝖎𝖛𝖊𝖗𝖘𝖊 🍃</span> is an autonomous creative technology lab specializing in high-performance WebGL graphics, GSAP kinetic timelines, and production-grade responsive architecture. Zero templates, zero framework bloat.
+                    </p>
+                </div>
+            </div>
+
+            <!-- The Journey / Metric Timeline -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-4">
+                    <span class="text-xs font-mono text-[#d6ad63] uppercase tracking-widest block mb-1 font-bold">// PRODUCTION LOGS</span>
+                    <h3 class="text-3xl font-extrabold tracking-tight text-white mb-2">THE JOURNEY</h3>
+                    <p class="text-neutral-400 text-xs font-mono">VERIFIED DISPATCH METRICS</p>
+                </div>
+                <div class="md:col-span-8 relative">
+                    <div class="flex flex-col md:flex-row justify-between gap-6 relative z-10">
+                        <div class="bg-black/80 border border-white/10 p-6 rounded-lg w-full md:w-64 group hover:border-[#fc3b56] transition-colors">
+                            <div class="text-4xl font-extrabold text-white mb-1 group-hover:text-[#fc3b56] transition-colors font-mono">4+</div>
+                            <div class="text-[10px] uppercase tracking-widest text-neutral-400 font-mono mb-3">Years Active</div>
+                            <p class="text-xs text-neutral-400 leading-relaxed">
+                                Pioneering frontend kinetics across <span class="text-white font-bold">Web3 &amp; Spatial Real-Time Engines</span>.
+                            </p>
+                        </div>
+                        <div class="bg-black/80 border border-white/10 p-6 rounded-lg w-full md:w-64 group hover:border-[#d6ad63] transition-colors md:ml-auto">
+                            <div class="text-4xl font-extrabold text-white mb-1 group-hover:text-[#d6ad63] transition-colors font-mono">100%</div>
+                            <div class="text-[10px] uppercase tracking-widest text-neutral-400 font-mono mb-3">Custom Architecture</div>
+                            <p class="text-xs text-neutral-400 leading-relaxed">
+                                Bespoke rendering pipelines deployed directly on <span class="text-white font-bold">Clean Production Clouds</span>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Reach: Map Simulation -->
+            <div class="border-t border-white/5 pt-12">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8">
+                    <div>
+                        <span class="text-xs font-mono text-[#fc3b56] uppercase tracking-widest block mb-1 font-bold">// NODES</span>
+                        <h3 class="text-xl font-bold tracking-tight text-white uppercase mb-2">Global Dispatch Mesh</h3>
+                        <p class="text-xs text-neutral-400 max-w-lg leading-relaxed">
+                            Serving ultra-low latency spatial web components across San Francisco, London, Dubai, Tokyo, and Singapore.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 text-[10px] font-mono text-emerald-400 uppercase border border-emerald-900/50 bg-emerald-950/30 px-3 py-1.5 rounded-full">
+                        <span class="animate-pulse">●</span> Active Uplink Stable
+                    </div>
+                </div>
+                
+                <div class="relative w-full h-[280px] bg-black/50 rounded-xl border border-white/5 overflow-hidden group">
+                    <div class="absolute inset-0" style="background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 35px 35px;"></div>
+                    
+                    <div class="absolute inset-0 flex items-center justify-center opacity-25">
+                         <svg viewBox="0 0 1000 500" fill="currentColor" class="text-white w-full h-full">
+                             <path d="M220,150 Q250,120 280,150 T340,180 T400,250 T350,350 T250,300 T220,150 M550,100 Q600,80 650,120 T700,200 T650,300 T550,250 T550,100 M800,150 Q850,130 900,160 T920,250 T850,300 T800,150"></path>
+                         </svg>
+                    </div>
+
+                    <div class="map-dot top-[30%] left-[20%] active"></div>
+                    <div class="map-dot top-[20%] left-[22%]"></div>
+                    <div class="map-dot top-[28%] left-[48%] active"></div>
+                    <div class="map-dot top-[29%] left-[52%]"></div>
+                    <div class="map-dot top-[35%] left-[55%]"></div>
+                    <div class="map-dot top-[40%] left-[60%] active"></div>
+
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none stroke-[#fc3b56] stroke-[1] fill-none opacity-50">
+                        <path d="M200,150 L480,140 L600,200"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: CORE DISCIPLINES (Expanding Accordion) -->
+    <section id="disciplines" class="py-24 border-y border-white/5 bg-black/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center gap-3 mb-10">
+                 <span class="iconify text-[#fc3b56]" data-icon="lucide:layers" data-width="20"></span>
+                 <h2 class="text-xs font-mono font-bold tracking-widest text-neutral-400 uppercase">CORE PROTOCOLS // SPATIAL &amp; 3D WORKS</h2>
+            </div>
+
+            <div class="flex flex-col md:flex-row h-[550px] gap-2">
+                <!-- Module 1: WebGL -->
+                <div class="group relative flex-accordion flex-1 hover:flex-[2] bg-neutral-900/60 border border-white/10 overflow-hidden cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-b from-[#fc3b56]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end transition-opacity duration-300 group-hover:opacity-0">
+                        <span class="text-4xl font-extrabold text-white/10 absolute top-6 right-6 font-mono">01</span>
+                        <h3 class="text-lg font-bold text-white uppercase tracking-tighter rotate-0 md:-rotate-90 md:origin-bottom-left md:translate-x-8 md:-translate-y-8 whitespace-nowrap font-mono">THREE.JS / WEBGL</h3>
+                    </div>
+                    <div class="absolute inset-0 p-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 flex flex-col justify-center">
+                        <span class="iconify text-[#fc3b56] mb-4" data-icon="lucide:monitor-play" data-width="32"></span>
+                        <h3 class="text-2xl font-extrabold text-white uppercase tracking-tight mb-3 font-mono">Three.js Spatial Graphics</h3>
+                        <p class="text-neutral-300 text-sm leading-relaxed">Interactive 3D particle systems, procedural vertex meshes, and camera choreography.</p>
+                    </div>
+                </div>
+
+                <!-- Module 2: GSAP Kinetics -->
+                <div class="group relative flex-accordion flex-1 hover:flex-[2] bg-neutral-900/60 border border-white/10 overflow-hidden cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-b from-[#d6ad63]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end transition-opacity duration-300 group-hover:opacity-0">
+                        <span class="text-4xl font-extrabold text-white/10 absolute top-6 right-6 font-mono">02</span>
+                        <h3 class="text-lg font-bold text-white uppercase tracking-tighter rotate-0 md:-rotate-90 md:origin-bottom-left md:translate-x-8 md:-translate-y-8 whitespace-nowrap font-mono">GSAP KINETICS</h3>
+                    </div>
+                    <div class="absolute inset-0 p-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 flex flex-col justify-center">
+                        <span class="iconify text-[#d6ad63] mb-4" data-icon="lucide:activity" data-width="32"></span>
+                        <h3 class="text-2xl font-extrabold text-white uppercase tracking-tight mb-3 font-mono">Scroll-Driven Timelines</h3>
+                        <p class="text-neutral-300 text-sm leading-relaxed">High-framerate scroll-pinned animations, multi-layer parallax, and micro-interactions.</p>
+                    </div>
+                </div>
+
+                <!-- Module 3: Full-Stack APIs -->
+                <div class="group relative flex-accordion flex-1 hover:flex-[2] bg-neutral-900/60 border border-white/10 overflow-hidden cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-b from-blue-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end transition-opacity duration-300 group-hover:opacity-0">
+                        <span class="text-4xl font-extrabold text-white/10 absolute top-6 right-6 font-mono">03</span>
+                        <h3 class="text-lg font-bold text-white uppercase tracking-tighter rotate-0 md:-rotate-90 md:origin-bottom-left md:translate-x-8 md:-translate-y-8 whitespace-nowrap font-mono">NODE &amp; BACKEND</h3>
+                    </div>
+                    <div class="absolute inset-0 p-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 flex flex-col justify-center">
+                        <span class="iconify text-sky-400 mb-4" data-icon="lucide:server" data-width="32"></span>
+                        <h3 class="text-2xl font-extrabold text-white uppercase tracking-tight mb-3 font-mono">Clean Architecture APIs</h3>
+                        <p class="text-neutral-300 text-sm leading-relaxed">Node.js and Express backend runtimes integrated with scalable MongoDB document layers.</p>
+                    </div>
+                </div>
+
+                <!-- Module 4: UI/UX Aesthetic -->
+                <div class="group relative flex-accordion flex-1 hover:flex-[2] bg-neutral-900/60 border border-white/10 overflow-hidden cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-b from-emerald-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end transition-opacity duration-300 group-hover:opacity-0">
+                        <span class="text-4xl font-extrabold text-white/10 absolute top-6 right-6 font-mono">04</span>
+                        <h3 class="text-lg font-bold text-white uppercase tracking-tighter rotate-0 md:-rotate-90 md:origin-bottom-left md:translate-x-8 md:-translate-y-8 whitespace-nowrap font-mono">TACTICAL UI</h3>
+                    </div>
+                    <div class="absolute inset-0 p-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 flex flex-col justify-center">
+                        <span class="iconify text-emerald-400 mb-4" data-icon="lucide:component" data-width="32"></span>
+                        <h3 class="text-2xl font-extrabold text-white uppercase tracking-tight mb-3 font-mono">Dark Cyber Aesthetics</h3>
+                        <p class="text-neutral-300 text-sm leading-relaxed">Tokyo Night color systems, precision glass panels, and typography built for high retention.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: PORTFOLIO (Horizontal + 3D Flip Cards) -->
+    <section id="archive" class="py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-10">
+             <span class="text-xs font-mono text-[#fc3b56] mb-2 block font-bold">/// ARCHIVE_ACCESS</span>
+             <h2 class="text-3xl font-extrabold tracking-tight text-white uppercase mb-4">Selected Artifacts</h2>
+             <div class="flex flex-wrap gap-4 text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-400">
+                <span>01 THREE.JS</span>
+                <span>/</span>
+                <span>02 KINETIC UI</span>
+                <span>/</span>
+                <span>03 MULTI-VIEWPORT</span>
+                <span>/</span>
+                <span>04 FULL-STACK MESH</span>
+            </div>
+        </div>
+
+        <div class="w-full overflow-x-auto pb-12 px-6 scrollbar-hide snap-x snap-mandatory">
+            <div class="flex gap-6 w-max">
+                
+                <!-- Card 1: Neo-Tokyo Three.js -->
+                <div class="group w-[320px] h-[450px] perspective-1000 cursor-pointer snap-center">
+                    <div class="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                        <div class="absolute w-full h-full backface-hidden bg-neutral-900 border border-white/10 rounded-xl overflow-hidden">
+                             <div class="w-full h-full bg-gradient-to-tr from-[#fc3b56]/40 via-black to-[#050608] flex flex-col justify-end p-8">
+                                <span class="text-[10px] font-mono text-red-300 uppercase tracking-widest mb-1">SPATIAL SCENE</span>
+                                <h3 class="text-2xl font-extrabold text-white uppercase leading-none font-mono">Neo-Tokyo<br>3D Realm</h3>
+                             </div>
+                        </div>
+                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-black border border-[#fc3b56]/50 rounded-xl overflow-hidden p-8 flex flex-col justify-center text-center">
+                            <span class="text-[10px] font-mono text-[#fc3b56] mb-3 uppercase tracking-widest font-bold">ARTIFACT DETAILS</span>
+                            <h3 class="text-xl font-bold text-white uppercase mb-2 font-mono">Neo-Tokyo 3D</h3>
+                            <p class="text-neutral-400 text-xs mb-6 leading-relaxed">Interactive 3D glassmorphic environment with camera controls and particle turbulence.</p>
+                            <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">STATUS: PRODUCTION DEPLOYED</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Titan Image Sequencer -->
+                <div class="group w-[320px] h-[450px] perspective-1000 cursor-pointer snap-center">
+                    <div class="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                        <div class="absolute w-full h-full backface-hidden bg-neutral-900 border border-white/10 rounded-xl overflow-hidden">
+                             <div class="w-full h-full bg-gradient-to-tr from-[#d6ad63]/40 via-black to-[#050608] flex flex-col justify-end p-8">
+                                <span class="text-[10px] font-mono text-amber-300 uppercase tracking-widest mb-1">SCROLL SIMULATION</span>
+                                <h3 class="text-2xl font-extrabold text-white uppercase leading-none font-mono">Titan<br>Sequencer</h3>
+                             </div>
+                        </div>
+                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-black border border-[#d6ad63]/50 rounded-xl overflow-hidden p-8 flex flex-col justify-center text-center">
+                            <span class="text-[10px] font-mono text-[#d6ad63] mb-3 uppercase tracking-widest font-bold">ARTIFACT DETAILS</span>
+                            <h3 class="text-xl font-bold text-white uppercase mb-2 font-mono">Titan Sequencer</h3>
+                            <p class="text-neutral-400 text-xs mb-6 leading-relaxed">Scroll-driven 2,200 frame render simulation mimicking zero-buffer 4K playback.</p>
+                            <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">STATUS: BATTLE TESTED</span>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Card 3: Multi-Viewport Matrix -->
+                 <div class="group w-[320px] h-[450px] perspective-1000 cursor-pointer snap-center">
+                    <div class="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                        <div class="absolute w-full h-full backface-hidden bg-neutral-900 border border-white/10 rounded-xl overflow-hidden">
+                             <div class="w-full h-full bg-gradient-to-tr from-sky-900/40 via-black to-[#050608] flex flex-col justify-end p-8">
+                                <span class="text-[10px] font-mono text-sky-300 uppercase tracking-widest mb-1">DEV WORKBENCH</span>
+                                <h3 class="text-2xl font-extrabold text-white uppercase leading-none font-mono">Multi-Viewport<br>Matrix</h3>
+                             </div>
+                        </div>
+                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-black border border-sky-500/50 rounded-xl overflow-hidden p-8 flex flex-col justify-center text-center">
+                            <span class="text-[10px] font-mono text-sky-400 mb-3 uppercase tracking-widest font-bold">ARTIFACT DETAILS</span>
+                            <h3 class="text-xl font-bold text-white uppercase mb-2 font-mono">Viewport Matrix</h3>
+                            <p class="text-neutral-400 text-xs mb-6 leading-relaxed">Live multi-device iframe emulator with real-time responsive scaling frame pods.</p>
+                            <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">STATUS: IN USE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Tactical Thumbnail Studio -->
+                <div class="group w-[320px] h-[450px] perspective-1000 cursor-pointer snap-center">
+                    <div class="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                        <div class="absolute w-full h-full backface-hidden bg-neutral-900 border border-white/10 rounded-xl overflow-hidden">
+                             <div class="w-full h-full bg-gradient-to-tr from-emerald-900/40 via-black to-[#050608] flex flex-col justify-end p-8">
+                                <span class="text-[10px] font-mono text-emerald-300 uppercase tracking-widest mb-1">CANVAS ENGINE</span>
+                                <h3 class="text-2xl font-extrabold text-white uppercase leading-none font-mono">Thumbnail<br>Studio Pro</h3>
+                             </div>
+                        </div>
+                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-black border border-emerald-500/50 rounded-xl overflow-hidden p-8 flex flex-col justify-center text-center">
+                            <span class="text-[10px] font-mono text-emerald-400 mb-3 uppercase tracking-widest font-bold">ARTIFACT DETAILS</span>
+                            <h3 class="text-xl font-bold text-white uppercase mb-2 font-mono">Thumbnail Studio</h3>
+                            <p class="text-neutral-400 text-xs mb-6 leading-relaxed">In-browser Fabric.js 1280x720 graphic generator with glow aura and live filters.</p>
+                            <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">STATUS: OPERATIONAL</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: TEAM (Visual Grid + Diagonal Wipe Reveal) -->
+    <section id="team" class="py-24 bg-black/40 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-xs font-mono text-[#fc3b56] mb-3 uppercase tracking-widest font-bold">[ ARCHITECT_UNIT ]</h2>
+            <p class="text-xs font-mono text-neutral-400 mb-10 max-w-xl uppercase">
+              DEAN'S INDEPENDENT HIGH-VELOCITY ENGINEERING LAB.
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
+                <!-- Member 1: Dean -->
+                <div class="diagonal-wipe h-64 bg-neutral-900/80 border border-white/10 relative group cursor-pointer overflow-hidden">
+                    <div class="absolute inset-0 bg-[url('https://api.dicebear.com/7.x/avataaars/svg?seed=Dean&amp;backgroundColor=12151f')] bg-cover bg-center opacity-60 grayscale group-hover:grayscale-0 transition-all duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-6 wipe-content group-hover:text-white">
+                        <h3 class="text-lg font-bold text-white uppercase tracking-tight relative z-30 font-mono">Dinesh Yadav (Dean)</h3>
+                        <p class="text-[10px] font-mono text-[#fc3b56] uppercase relative z-30 font-bold">Full-Stack &amp; WebGL Architect</p>
+                    </div>
+                </div>
+
+                <!-- Member 2: Spatial Shaders -->
+                <div class="diagonal-wipe h-64 bg-neutral-900/80 border border-white/10 relative group cursor-pointer overflow-hidden">
+                    <div class="absolute inset-0 bg-[url('https://api.dicebear.com/7.x/avataaars/svg?seed=Three&amp;backgroundColor=12151f')] bg-cover bg-center opacity-60 grayscale group-hover:grayscale-0 transition-all duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-6 wipe-content">
+                        <h3 class="text-lg font-bold text-white uppercase tracking-tight relative z-30 font-mono">Three.js Engine</h3>
+                        <p class="text-[10px] font-mono text-[#d6ad63] uppercase relative z-30 font-bold">WebGL Shader Core</p>
+                    </div>
+                </div>
+
+                <!-- Member 3: Kinetic Motion -->
+                <div class="diagonal-wipe h-64 bg-neutral-900/80 border border-white/10 relative group cursor-pointer overflow-hidden">
+                    <div class="absolute inset-0 bg-[url('https://api.dicebear.com/7.x/avataaars/svg?seed=GSAP&amp;backgroundColor=12151f')] bg-cover bg-center opacity-60 grayscale group-hover:grayscale-0 transition-all duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-6 wipe-content">
+                        <h3 class="text-lg font-bold text-white uppercase tracking-tight relative z-30 font-mono">GSAP Timeline</h3>
+                        <p class="text-[10px] font-mono text-emerald-400 uppercase relative z-30 font-bold">Kinetic Flow Choreography</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: TRANSMISSION (Contact Dispatch) -->
+    <section id="transmission" class="py-24 border-t border-white/5 relative bg-black/60">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="text-center md:text-left">
+                    <span class="text-xs font-mono text-[#fc3b56] uppercase tracking-widest font-bold block mb-2">// DIRECT SIGNAL</span>
+                    <h2 class="text-3xl font-extrabold tracking-tight text-white mb-4">READY TO TRANSMIT?</h2>
+                    <div class="flex flex-col space-y-2 text-xs text-neutral-400 font-mono">
+                        <a href="mailto:epicgameglider@gmail.com" class="hover:text-[#fc3b56] transition-colors flex items-center justify-center md:justify-start gap-2">
+                            <span class="iconify" data-icon="lucide:mail" data-width="16"></span>
+                            epicgameglider@gmail.com
+                        </a>
+                        <a href="https://github.com/DEANSUNIVERSE" target="_blank" class="hover:text-[#fc3b56] transition-colors flex items-center justify-center md:justify-start gap-2">
+                            <span class="iconify" data-icon="lucide:github" data-width="16"></span>
+                            github.com/DEANSUNIVERSE
+                        </a>
+                    </div>
+                </div>
+
+                <a href="mailto:epicgameglider@gmail.com" class="neon-glow-btn px-9 py-4 bg-[#fc3b56] text-white font-mono font-bold text-xs tracking-widest uppercase rounded hover:bg-red-600 transition-colors flex items-center gap-3 shadow-[0_0_20px_rgba(252,59,86,0.5)]">
+                    Initiate Transmission
+                    <span class="iconify" data-icon="lucide:send" data-width="16"></span>
+                </a>
+            </div>
+            
+            <div class="border-t border-white/5 mt-16 pt-8 text-center md:text-left text-[10px] font-mono text-neutral-600 uppercase tracking-widest">
+                © 2026 𝕯𝖊𝖆𝖓'𝖘 𝖀𝖓𝖎𝖛𝖊𝖗𝖘𝖊 🍃. ALL SYSTEMS OPERATIONAL.
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulated Boot Script -->
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.classList.add('loader-hidden');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 1800);
+        });
+    </script>
+</body>
+</html>
